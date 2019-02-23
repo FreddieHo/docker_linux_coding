@@ -12,7 +12,8 @@ RUN    apt-get update \
                       g++ \
                       make \
                       llvm \
-                      binutils
+                      binutils \
+                      python3
 
 RUN service ssh start
 
@@ -20,8 +21,7 @@ VOLUME [ "/work" ]
 
 WORKDIR /work
 
-RUN apt install python3 && \
-    python3 -m ensurepip && \
+RUN python3 -m ensurepip && \
     rm -r /usr/lib/python*/ensurepip && \
     pip3 install --upgrade pip setuptools && \
     if [ ! -e /usr/bin/pip ]; then ln -s pip3 /usr/bin/pip ; fi && \
