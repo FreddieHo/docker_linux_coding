@@ -3,6 +3,8 @@ FROM ubuntu:18.04
 RUN    apt-get update \
     && apt install -y wget \
                       git \
+                      repo \
+                      subversion \
                       curl \
                       zip \
                       vim \
@@ -18,7 +20,7 @@ RUN    apt-get update \
 
 RUN service ssh start
 
-VOLUME [ "/work" ]
+VOLUME [ "/work", "/toolchain" ]
 
 WORKDIR /work
 
