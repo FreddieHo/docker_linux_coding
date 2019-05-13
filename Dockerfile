@@ -16,7 +16,12 @@ RUN    apt-get update \
                       llvm \
                       binutils \
                       python3 \
-                      python3-pip
+                      python3-pip \
+                      lib32ncurses5 lib32z1 lib32stdc++6 \
+                      libz-dev liblzma-dev bison flex bc \
+                      iputils-ping net-tools dnsutils
+
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
 RUN service ssh start
 
