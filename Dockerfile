@@ -19,11 +19,22 @@ RUN    apt-get update \
                       python3-pip \
                       lib32ncurses5 lib32z1 lib32stdc++6 \
                       libz-dev liblzma-dev bison flex bc cpio libncurses5-dev \
-                      iputils-ping net-tools dnsutils tftp-hpa
+                      iputils-ping net-tools dnsutils tftp-hpa \
+                      samba smbclient
 
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
-
 RUN service ssh start
+
+RUN echo "
+[work]
+path = /work
+browsable = yes
+read only = no
+guest ok = yes
+veto files = /._*/.apdisk/.AppleDouble/.DS_Store/.TemporaryItems/.Trashes/desktop.ini/ehthumbs.db/Network Trash Folder/Temporary Items/Thumbs.db/
+delete veto files = yes" >> /etc/samba/smb.conf
+
+RUN service smbd restart
 
 VOLUME [ "/work", "/toolchain" ]
 
