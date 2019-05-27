@@ -25,14 +25,8 @@ RUN    apt-get update \
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 RUN service ssh start
 
-RUN echo "
-[work]
-path = /work
-browsable = yes
-read only = no
-guest ok = yes
-veto files = /._*/.apdisk/.AppleDouble/.DS_Store/.TemporaryItems/.Trashes/desktop.ini/ehthumbs.db/Network Trash Folder/Temporary Items/Thumbs.db/
-delete veto files = yes" >> /etc/samba/smb.conf
+COPY smb.conf .
+RUN cat smb.conf >> /etc/samba/smb.conf && rm -rf smb.conf
 
 RUN service smbd restart
 
